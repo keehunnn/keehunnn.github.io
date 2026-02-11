@@ -27,6 +27,16 @@
             --mono: 'JetBrains Mono', monospace;
         }
 
+        .scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--accent);
+            z-index: 200;
+            box-shadow: 0 0 8px var(--accent-glow);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         html {
@@ -44,10 +54,7 @@
             overflow-x: hidden;
         }
 
-        ::selection {
-            background: var(--accent);
-            color: var(--bg);
-        }
+        ::selection { background: var(--accent); color: var(--bg); }
 
         body::before {
             content: '';
@@ -60,16 +67,15 @@
 
         .cursor-glow {
             position: fixed;
-            width: 600px;
-            height: 600px;
+            width: 600px; height: 600px;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(240, 201, 89, 0.04) 0%, transparent 70%);
             pointer-events: none;
             z-index: 0;
             transform: translate(-50%, -50%);
-            transition: opacity 0.3s;
         }
 
+        /* ─── NAV ─── */
         nav {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -91,14 +97,9 @@
             text-decoration: none;
             letter-spacing: -0.02em;
         }
-
         .nav-logo span { color: var(--accent); }
 
-        .nav-links {
-            display: flex;
-            gap: 2.25rem;
-            list-style: none;
-        }
+        .nav-links { display: flex; gap: 2.25rem; list-style: none; }
 
         .nav-links a {
             font-family: var(--mono);
@@ -111,7 +112,6 @@
             position: relative;
             transition: color 0.3s;
         }
-
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -120,7 +120,6 @@
             background: var(--accent);
             transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
         .nav-links a:hover { color: var(--accent); }
         .nav-links a:hover::after { width: 100%; }
 
@@ -133,14 +132,13 @@
             border: none;
             padding: 4px;
         }
-
         .hamburger span {
-            width: 22px;
-            height: 1.5px;
+            width: 22px; height: 1.5px;
             background: var(--text-primary);
             transition: all 0.3s;
         }
 
+        /* ─── HERO ─── */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -184,10 +182,31 @@
             66% { transform: translate(15px, -20px) scale(0.95); }
         }
 
+        /* Hero image on right side with fade */
+        .hero-image {
+            position: absolute;
+            top: 0; left: 0;
+            width: 50%;
+            height: 100%;
+            background-image: url('hero.jpg');
+            background-size: cover;
+            background-position: center top;
+            mask-image: linear-gradient(to left, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0.7) 100%);
+            -webkit-mask-image: linear-gradient(to left, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0.7) 100%);
+            opacity: 0;
+            animation: fadeIn 1.5s ease 0.5s forwards;
+            z-index: 0;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
         .hero-content {
             max-width: 880px;
             position: relative;
             z-index: 1;
+            margin-left: auto;
         }
 
         .hero-eyebrow {
@@ -211,10 +230,20 @@
             opacity: 0;
             animation: fadeSlideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
         }
+        .hero-title em { font-style: italic; color: var(--accent); }
 
-        .hero-title em {
-            font-style: italic;
-            color: var(--accent);
+        /* Typing cursor */
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 0.85em;
+            background: var(--accent);
+            margin-left: 4px;
+            vertical-align: baseline;
+            animation: blink 0.8s step-end infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
         }
 
         .hero-subtitle {
@@ -248,7 +277,6 @@
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: default;
         }
-
         .pill:hover {
             border-color: var(--accent);
             color: var(--accent);
@@ -276,8 +304,7 @@
 
         .hero-scroll {
             position: absolute;
-            bottom: 2.5rem;
-            left: 2.5rem;
+            bottom: 2.5rem; left: 2.5rem;
             display: flex;
             align-items: center;
             gap: 0.75rem;
@@ -291,13 +318,11 @@
         }
 
         .scroll-line {
-            width: 40px;
-            height: 1px;
+            width: 40px; height: 1px;
             background: var(--border-light);
             position: relative;
             overflow: hidden;
         }
-
         .scroll-line::after {
             content: '';
             position: absolute;
@@ -313,6 +338,7 @@
             100% { left: 100%; }
         }
 
+        /* ─── SECTIONS ─── */
         section {
             padding: 6rem 2.5rem;
             border-top: 1px solid var(--border);
@@ -341,15 +367,12 @@
         }
 
         .section-line {
-            flex: 1;
-            height: 1px;
+            flex: 1; height: 1px;
             background: linear-gradient(90deg, var(--border-light), transparent);
         }
 
-        .timeline {
-            position: relative;
-            padding-left: 2rem;
-        }
+        /* ─── EXPERIENCE ─── */
+        .timeline { position: relative; padding-left: 2rem; }
 
         .timeline::before {
             content: '';
@@ -359,24 +382,18 @@
             background: linear-gradient(180deg, var(--accent), var(--border-light) 30%, var(--border-light) 70%, transparent);
         }
 
-        .timeline-item {
-            position: relative;
-            padding: 0 0 3rem 2.5rem;
-        }
-
+        .timeline-item { position: relative; padding: 0 0 3rem 2.5rem; }
         .timeline-item:last-child { padding-bottom: 0; }
 
         .timeline-dot {
             position: absolute;
-            left: -2.5rem;
-            top: 0.4rem;
+            left: -2.5rem; top: 0.4rem;
             width: 9px; height: 9px;
             border-radius: 50%;
             background: var(--bg);
             border: 2px solid var(--accent);
             transition: all 0.3s;
         }
-
         .timeline-item:hover .timeline-dot {
             background: var(--accent);
             box-shadow: 0 0 12px var(--accent-glow);
@@ -446,6 +463,7 @@
             letter-spacing: 0.03em;
         }
 
+        /* ─── PROJECTS ─── */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -506,6 +524,7 @@
             border-top: 1px solid var(--border);
         }
 
+        /* ─── EDUCATION ─── */
         .edu-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -530,34 +549,15 @@
             transform-origin: left;
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
         .edu-card:hover { background: var(--bg-elevated); border-color: var(--border-light); }
         .edu-card:hover::before { transform: scaleX(1); }
 
-        .edu-degree {
-            font-family: var(--serif);
-            font-size: 1.3rem;
-            margin-bottom: 0.2rem;
-        }
+        .edu-degree { font-family: var(--serif); font-size: 1.3rem; margin-bottom: 0.2rem; }
+        .edu-school { color: var(--accent); font-weight: 600; font-size: 0.95rem; margin-bottom: 0.5rem; }
+        .edu-details { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
+        .edu-details strong { color: var(--text-primary); font-weight: 600; }
 
-        .edu-school {
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .edu-details {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-
-        .edu-details strong {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
+        /* ─── LEADERSHIP ─── */
         .leadership-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -579,46 +579,88 @@
             background: var(--accent);
             transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
         .lead-card:hover { background: var(--bg-elevated); border-color: var(--border-light); }
         .lead-card:hover::before { height: 100%; }
 
-        .lead-org {
-            font-family: var(--serif);
-            font-size: 1.2rem;
-            margin-bottom: 0.15rem;
-        }
-
-        .lead-role {
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 0.15rem;
-        }
-
-        .lead-date {
-            font-family: var(--mono);
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            letter-spacing: 0.04em;
-            margin-bottom: 0.5rem;
-        }
-
-        .lead-desc {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.65;
-        }
-
-        .lead-desc a {
-            color: var(--accent);
-            text-decoration: none;
-            font-family: var(--mono);
-            font-size: 0.7rem;
-        }
-
+        .lead-org { font-family: var(--serif); font-size: 1.2rem; margin-bottom: 0.15rem; }
+        .lead-role { color: var(--accent); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.15rem; }
+        .lead-date { font-family: var(--mono); font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.04em; margin-bottom: 0.5rem; }
+        .lead-desc { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65; }
+        .lead-desc a { color: var(--accent); text-decoration: none; font-family: var(--mono); font-size: 0.7rem; }
         .lead-desc a:hover { opacity: 0.7; }
 
+        /* ─── MUSIC SUBSECTION ─── */
+        .music-divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 3rem 0 2rem;
+        }
+
+        .music-divider-line {
+            flex: 1; height: 1px;
+            background: linear-gradient(90deg, var(--border-light), transparent);
+        }
+
+        .music-divider-label {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .photo-strip {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding: 0.25rem 0;
+        }
+        .photo-strip::-webkit-scrollbar { display: none; }
+
+        .photo-strip img {
+            height: 200px;
+            width: auto;
+            border-radius: 4px;
+            object-fit: cover;
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            flex-shrink: 0;
+        }
+        .photo-strip img:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(240, 201, 89, 0.1);
+        }
+
+        .btn-box {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--accent);
+            letter-spacing: 0.05em;
+            border: 1px solid var(--accent);
+            padding: 0.4rem 0.9rem;
+            border-radius: 3px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .btn-box:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+        .btn-box.filled {
+            background: var(--accent);
+            color: var(--bg);
+        }
+        .btn-box.filled:hover {
+            background: transparent;
+            color: var(--accent);
+        }
+
+        /* ─── SKILLS ─── */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -632,7 +674,6 @@
             padding: 2rem;
             transition: background 0.3s;
         }
-
         .skill-group:hover { background: var(--bg-elevated); }
 
         .skill-group-title {
@@ -644,9 +685,7 @@
             margin-bottom: 1.1rem;
         }
 
-        .skill-list {
-            list-style: none;
-        }
+        .skill-list { list-style: none; }
 
         .skill-list li {
             font-size: 0.92rem;
@@ -655,10 +694,10 @@
             border-bottom: 1px solid var(--border);
             transition: all 0.25s;
         }
-
         .skill-list li:last-child { border: none; }
         .skill-list li:hover { color: var(--text-primary); padding-left: 0.3rem; }
 
+        /* ─── BEYOND FINANCE ─── */
         .beyond-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -672,7 +711,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .beyond-card:hover {
             border-color: var(--accent);
             transform: translateY(-3px);
@@ -685,49 +723,32 @@
             display: inline-block;
             transition: transform 0.3s;
         }
-
         .beyond-card:hover .beyond-icon { transform: scale(1.15); }
 
-        .beyond-title {
-            font-family: var(--serif);
-            font-size: 1.2rem;
-            margin-bottom: 0.4rem;
-        }
+        .beyond-title { font-family: var(--serif); font-size: 1.2rem; margin-bottom: 0.4rem; }
+        .beyond-desc { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65; }
 
-        .beyond-desc {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.65;
-        }
-
-        .beyond-link {
-            display: inline-block;
-            margin-top: 0.6rem;
-            font-family: var(--mono);
-            font-size: 0.72rem;
-            color: var(--accent);
-            text-decoration: none;
-            letter-spacing: 0.05em;
-            transition: opacity 0.2s;
-        }
-
-        .beyond-link:hover { opacity: 0.7; }
-
+        /* ─── CONTACT ─── */
         .contact-section {
             text-align: center;
-            padding: 8rem 2.5rem;
+            padding: 0;
             position: relative;
             overflow: hidden;
         }
 
-        .contact-orb {
+        .contact-bg {
             position: absolute;
-            width: 400px; height: 400px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(240, 201, 89, 0.05), transparent 70%);
-            filter: blur(80px);
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
+            inset: 0;
+            background-image: url('hk.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+        }
+
+        .contact-inner {
+            position: relative;
+            z-index: 1;
+            padding: 8rem 2.5rem;
         }
 
         .contact-section .section-header { justify-content: center; }
@@ -738,9 +759,7 @@
             letter-spacing: -0.03em;
             margin-bottom: 1.25rem;
             line-height: 1.15;
-            position: relative;
         }
-
         .contact-cta em { color: var(--accent); font-style: italic; }
 
         .contact-sub {
@@ -756,7 +775,6 @@
             justify-content: center;
             gap: 0.75rem;
             flex-wrap: wrap;
-            position: relative;
         }
 
         .contact-link {
@@ -770,30 +788,50 @@
             letter-spacing: 0.05em;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
         .contact-link:hover {
             background: var(--accent);
             color: var(--bg);
             border-color: var(--accent);
             transform: translateY(-2px);
         }
-
         .contact-link.primary {
             background: var(--accent);
             color: var(--bg);
             border-color: var(--accent);
         }
-
         .contact-link.primary:hover {
             background: transparent;
             color: var(--accent);
             transform: translateY(-2px);
         }
 
-        .awards-pills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 42px;
+            height: 42px;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            z-index: 99;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            box-shadow: 0 4px 16px rgba(240, 201, 89, 0.2);
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 24px rgba(240, 201, 89, 0.3);
         }
 
         footer {
@@ -808,6 +846,7 @@
             letter-spacing: 0.05em;
         }
 
+        /* ─── ANIMATIONS ─── */
         @keyframes fadeSlideUp {
             from { opacity: 0; transform: translateY(24px); }
             to { opacity: 1; transform: translateY(0); }
@@ -818,29 +857,21 @@
             transform: translateY(35px);
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
 
         .reveal-stagger > * {
             opacity: 0;
             transform: translateY(25px);
             transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-        .reveal-stagger.visible > * {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
+        .reveal-stagger.visible > * { opacity: 1; transform: translateY(0); }
         .reveal-stagger.visible > *:nth-child(1) { transition-delay: 0s; }
         .reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.08s; }
         .reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.08s; }
         .reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.16s; }
         .reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.24s; }
         .reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.32s; }
+        .reveal-stagger.visible > *:nth-child(7) { transition-delay: 0.40s; }
 
         section::before {
             content: '';
@@ -851,17 +882,15 @@
             opacity: 0;
             transition: opacity 0.5s;
         }
-
         section:hover::before { opacity: 1; }
 
+        /* ─── RESPONSIVE ─── */
         @media (max-width: 768px) {
             nav { padding: 1rem 1.5rem; }
-
             .nav-links {
                 display: none;
                 position: absolute;
-                top: 100%;
-                left: 0; right: 0;
+                top: 100%; left: 0; right: 0;
                 background: rgba(22, 22, 24, 0.95);
                 backdrop-filter: blur(24px);
                 flex-direction: column;
@@ -869,35 +898,27 @@
                 gap: 1rem;
                 border-bottom: 1px solid var(--border);
             }
-
             .nav-links.open { display: flex; }
             .hamburger { display: flex; }
             .hero { padding: 7rem 1.5rem 4rem; }
+            .hero-image { width: 100%; opacity: 0.15; mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.2) 50%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.2) 50%, transparent 100%); }
             section { padding: 4rem 1.5rem; }
             .edu-grid { grid-template-columns: 1fr; }
             .skills-grid { grid-template-columns: 1fr; }
             .projects-grid { grid-template-columns: 1fr; }
             .leadership-grid { grid-template-columns: 1fr; }
             .beyond-grid { grid-template-columns: 1fr; }
-            .contact-section { padding: 5rem 1.5rem; }
+            .contact-inner { padding: 5rem 1.5rem; }
             .cursor-glow { display: none; }
-
-            .timeline-header {
-                flex-direction: column;
-                gap: 0.15rem;
-            }
-
-            footer {
-                flex-direction: column;
-                gap: 0.5rem;
-                text-align: center;
-                padding: 1.5rem;
-            }
+            .timeline-header { flex-direction: column; gap: 0.15rem; }
+            .photo-strip img { height: 150px; }
+            footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
+<div class="scroll-progress" id="scrollProgress"></div>
 <div class="cursor-glow" id="cursorGlow"></div>
 
 <!-- ════════════════════════════════════════════════════════════════
@@ -921,13 +942,15 @@
 
 <!-- ════════════════════════════════════════════════════════════════
      HERO SECTION
+     IMAGE: Place your headshot as "hero.jpg" in the same folder
      ════════════════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
     <div class="hero-grid-bg"></div>
     <div class="hero-accent-orb"></div>
+    <div class="hero-image"></div>
     <div class="hero-content">
         <p class="hero-eyebrow">Tan Kee Hun · LSE BSc Economics · Class of 2027</p>
-        <h1 class="hero-title">Finance &<br><em>Economics</em></h1>
+        <h1 class="hero-title" id="heroTitle"></h1>
         <div class="hero-pills">
             <span class="pill">Investments</span>
             <span class="pill">Trading</span>
@@ -1151,14 +1174,17 @@
 </section>
 
 <!-- ════════════════════════════════════════════════════════════════
-     LEADERSHIP
+     LEADERSHIP & MUSIC
+     IMAGES: Place concert photos as concert1.jpg, concert2.jpg, concert3.jpg etc.
      ════════════════════════════════════════════════════════════════ -->
 <section id="leadership">
     <div class="section-header reveal">
         <span class="section-number">04</span>
-        <h2 class="section-title">Leadership</h2>
+        <h2 class="section-title">Leadership & Music</h2>
         <div class="section-line"></div>
     </div>
+
+    <!-- Leadership cards -->
     <div class="leadership-grid reveal-stagger">
         <div class="lead-card">
             <h3 class="lead-org">LSE Trading Society</h3>
@@ -1166,24 +1192,7 @@
             <p class="lead-date">2025 – Present</p>
             <p class="lead-desc">One of LSE's five largest societies. Develop digital content strategy and manage communications to drive online engagement and event attendance.</p>
             <div style="margin-top: 0.75rem;">
-                <a href="https://uk.linkedin.com/company/lsesu-trading-society" target="_blank" rel="noopener" style="display: inline-block; font-family: var(--mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.05em; border: 1px solid var(--accent); padding: 0.4rem 0.9rem; border-radius: 3px; text-decoration: none; transition: all 0.3s;">LinkedIn →</a>
-            </div>
-        </div>
-        <a href="https://www.youtube.com/@funktion-k8u2m" target="_blank" rel="noopener" class="lead-card" style="text-decoration: none; color: inherit; display: block; cursor: pointer;">
-            <h3 class="lead-org">Funktion — LSE Band</h3>
-            <p class="lead-role">Founder</p>
-            <p class="lead-date">2024 – Present</p>
-            <p class="lead-desc">Founded LSE's band "Funktion"; invited to perform at various events across London.</p>
-            <span style="display: inline-block; margin-top: 0.75rem; font-family: var(--mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.05em; border: 1px solid var(--accent); padding: 0.4rem 0.9rem; border-radius: 3px; transition: all 0.3s;">▶ Watch on YouTube</span>
-        </a>
-        <div class="lead-card" style="cursor: default;">
-            <h3 class="lead-org">The Insignificant Figures — School Band</h3>
-            <p class="lead-role">Founder & Concert Director</p>
-            <p class="lead-date">2018 – 2024</p>
-            <p class="lead-desc">Founded first student band in high school. Performed for Singapore Consulate General and Chamber of Commerce; Gold Award in inter-school competitions.</p>
-            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem;">
-                <a href="https://youtu.be/diEN8mymp_k?si=cqjgSJC8I0Rkssnw" target="_blank" rel="noopener" style="display: inline-block; font-family: var(--mono); font-size: 0.68rem; color: var(--bg); background: var(--accent); letter-spacing: 0.05em; border: 1px solid var(--accent); padding: 0.4rem 0.9rem; border-radius: 3px; text-decoration: none; transition: all 0.3s;">🎵 2-Hour Charity Concert</a>
-                <a href="https://www.youtube.com/@theinsignificantfigures" target="_blank" rel="noopener" style="display: inline-block; font-family: var(--mono); font-size: 0.68rem; color: var(--accent); letter-spacing: 0.05em; border: 1px solid var(--accent); padding: 0.4rem 0.9rem; border-radius: 3px; text-decoration: none; transition: all 0.3s;">▶ Watch on YouTube</a>
+                <a href="https://uk.linkedin.com/company/lsesu-trading-society" target="_blank" rel="noopener" class="btn-box">LinkedIn →</a>
             </div>
         </div>
         <div class="lead-card">
@@ -1198,6 +1207,54 @@
             <p class="lead-date">2022 – Present</p>
             <p class="lead-desc">Tutor Mathematics, Economics, Physics, and Music at IGCSE/IB level. Mentor students on university applications. Volunteered with Kids4Kids teaching English literacy to underprivileged primary school students.</p>
         </div>
+    </div>
+
+    <!-- Music subsection -->
+    <div class="music-divider reveal">
+        <div class="music-divider-line"></div>
+        <span class="music-divider-label">🎵 Music</span>
+        <div class="music-divider-line"></div>
+    </div>
+
+    <!-- Concert photo strip -->
+    <!-- IMAGES: Add your concert photos as concert1.jpg, concert2.jpg, concert3.jpg, concert4.jpg in the same folder -->
+    <div class="photo-strip reveal">
+        <img src="concert1.jpg" alt="Concert photo" onerror="this.style.display='none'">
+        <img src="concert2.jpg" alt="Concert photo" onerror="this.style.display='none'">
+        <img src="concert3.jpg" alt="Concert photo" onerror="this.style.display='none'">
+        <img src="concert4.jpg" alt="Concert photo" onerror="this.style.display='none'">
+    </div>
+
+    <!-- Band cards -->
+    <div class="leadership-grid reveal-stagger">
+        <div class="lead-card">
+            <h3 class="lead-org">Funktion — LSE Band</h3>
+            <p class="lead-role">Founder</p>
+            <p class="lead-date">2024 – Present</p>
+            <p class="lead-desc">Founded LSE's band "Funktion"; invited to perform at various events across London.</p>
+            <div style="margin-top: 0.75rem;">
+                <a href="https://www.youtube.com/@funktion-k8u2m" target="_blank" rel="noopener" class="btn-box">▶ Watch on YouTube</a>
+            </div>
+        </div>
+        <div class="lead-card">
+            <h3 class="lead-org">The Insignificant Figures — School Band</h3>
+            <p class="lead-role">Founder & Concert Director</p>
+            <p class="lead-date">2018 – 2024</p>
+            <p class="lead-desc">Founded first student band in high school. Performed for Singapore Consulate General and Chamber of Commerce; Gold Award in inter-school competitions.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem;">
+                <a href="https://youtu.be/diEN8mymp_k?si=cqjgSJC8I0Rkssnw" target="_blank" rel="noopener" class="btn-box filled">🎵 2-Hour Charity Concert</a>
+                <a href="https://www.youtube.com/@theinsignificantfigures" target="_blank" rel="noopener" class="btn-box">▶ Watch on YouTube</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Instrument pills -->
+    <div class="reveal" style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.4rem;">
+        <span class="tag">🥁 ATCL Diploma — Drums</span>
+        <span class="tag">🎹 ATCL Diploma — Piano</span>
+        <span class="tag">🎸 Grade 8 — Guitar</span>
+        <span class="tag">🎸 Grade 8 — Bass</span>
+        <span class="tag">🎹 Grade 8 — Keyboards</span>
     </div>
 </section>
 
@@ -1257,16 +1314,11 @@
     </div>
     <div class="beyond-grid reveal-stagger">
         <div class="beyond-card">
-            <div class="beyond-icon">🎸</div>
-            <h3 class="beyond-title">Multi-Instrumentalist</h3>
-            <p class="beyond-desc">Trinity ATCL Diplomas in drums and piano. Rockschool Grade 8 Distinction in guitar, bass, and keyboards. Founded two bands across Hong Kong and London.</p>
-        </div>
-        <div class="beyond-card">
             <div class="beyond-icon">✈️</div>
             <h3 class="beyond-title">Aviation</h3>
             <p class="beyond-desc">Lifelong aviation enthusiast with deep knowledge of airline operations, fleet strategy, route economics, and aircraft systems. Run a YouTube channel producing flight reviews, airline comparisons, airport spotting, and industry analysis. Closely follow developments across commercial, cargo, and low-cost carriers in the Asia-Pacific region and globally.</p>
             <div style="margin-top: 0.75rem;">
-                <a href="https://www.youtube.com/@CrosscheckYTX" target="_blank" rel="noopener" style="display: inline-block; font-family: var(--mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.05em; border: 1px solid var(--accent); padding: 0.4rem 0.9rem; border-radius: 3px; text-decoration: none; transition: all 0.3s;">▶ CrosscheckYTX on YouTube</a>
+                <a href="https://www.youtube.com/@CrosscheckYTX" target="_blank" rel="noopener" class="btn-box">▶ CrosscheckYTX on YouTube</a>
             </div>
         </div>
         <div class="beyond-card">
@@ -1278,11 +1330,6 @@
             <div class="beyond-icon">📹</div>
             <h3 class="beyond-title">Video Production</h3>
             <p class="beyond-desc">Self-taught in Final Cut Pro. Produce and edit content across multiple YouTube channels covering education, aviation, and music.</p>
-        </div>
-        <div class="beyond-card">
-            <div class="beyond-icon">📚</div>
-            <h3 class="beyond-title">Education & Tutoring</h3>
-            <p class="beyond-desc">Run a YouTube channel making economics and finance intuitive through visual, first-principles explanations.</p>
         </div>
         <div class="beyond-card">
             <div class="beyond-icon">🏙️</div>
@@ -1299,6 +1346,7 @@
 
 <!-- ════════════════════════════════════════════════════════════════
      AWARDS & CERTIFICATIONS
+     PDFS: Place your certificates as diploma.pdf and certificate.pdf
      ════════════════════════════════════════════════════════════════ -->
 <section>
     <div class="section-header reveal">
@@ -1315,6 +1363,11 @@
                 <span class="pill">AmplifyME Level 4 Diploma — IB Sales & Trading</span>
                 <span class="pill">Finance Accelerator Award · 2025</span>
                 <span class="pill">CME Group Live Trading Simulation — Top 20 · 2025</span>
+            </div>
+            <!-- PDF: Links to your certificate files -->
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+                <a href="diploma.pdf" target="_blank" rel="noopener" class="btn-box" style="font-size: 0.68rem;">📄 View Diploma</a>
+                <a href="certificate.pdf" target="_blank" rel="noopener" class="btn-box" style="font-size: 0.68rem;">📄 View Certificate</a>
             </div>
         </div>
         <!-- Academic -->
@@ -1343,23 +1396,26 @@
 
 <!-- ════════════════════════════════════════════════════════════════
      CONTACT
+     IMAGE: Place your HK skyline as "hk.jpg" in the same folder
      ════════════════════════════════════════════════════════════════ -->
 <section class="contact-section" id="contact">
-    <div class="contact-orb"></div>
-    <div class="section-header reveal">
-        <span class="section-number">07</span>
-        <h2 class="section-title">Contact</h2>
-        <div class="section-line"></div>
-    </div>
-    <div class="reveal">
-        <h2 class="contact-cta">Say <em>hello.</em></h2>
-        <p class="contact-sub">
-            Open to summer 2026 opportunities in investments, trading,
-            quantitative research, and asset management.
-        </p>
-        <div class="contact-links">
-            <a href="mailto:tankeehun.uni@gmail.com" class="contact-link primary">Email Me</a>
-            <a href="https://www.linkedin.com/in/tankeehun/" class="contact-link" target="_blank" rel="noopener">LinkedIn</a>
+    <div class="contact-bg"></div>
+    <div class="contact-inner">
+        <div class="section-header reveal">
+            <span class="section-number">07</span>
+            <h2 class="section-title">Contact</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="reveal">
+            <h2 class="contact-cta">Get in <em>touch.</em></h2>
+            <p class="contact-sub">
+                Open to summer 2026 opportunities in investments, trading,
+                quantitative research, and asset management.
+            </p>
+            <div class="contact-links">
+                <a href="mailto:tankeehun@gmail.com" class="contact-link primary">Email Me</a>
+                <a href="https://www.linkedin.com/in/tankeehun/" class="contact-link" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
         </div>
     </div>
 </section>
@@ -1367,12 +1423,105 @@
 <!-- ════════════════════════════════════════════════════════════════
      FOOTER
      ════════════════════════════════════════════════════════════════ -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
 <footer>
     <span>&copy; 2026 Tan Kee Hun. All rights reserved.</span>
     <span></span>
 </footer>
 
 <script>
+    // ─── Typing Effect ───
+    const heroTitle = document.getElementById('heroTitle');
+    const textParts = [
+        { text: 'Finance & \n', italic: false },
+        { text: 'Economics', italic: true }
+    ];
+
+    function typeWriter() {
+        let fullHTML = '';
+        let totalChars = textParts.reduce((sum, p) => sum + p.text.length, 0);
+        let charIndex = 0;
+        const cursor = document.createElement('span');
+        cursor.className = 'typing-cursor';
+
+        function type() {
+            let currentPos = 0;
+            let html = '';
+
+            for (const part of textParts) {
+                for (let i = 0; i < part.text.length; i++) {
+                    if (currentPos < charIndex) {
+                        const char = part.text[i];
+                        if (char === '\n') {
+                            html += '<br>';
+                        } else if (part.italic) {
+                            if (i === 0 || currentPos === 0 || !textParts.some((p, idx) => p.italic && textParts.slice(0, idx).reduce((s, pp) => s + pp.text.length, 0) < currentPos)) {
+                                // Check if we need to open em tag
+                            }
+                            html += char;
+                        } else {
+                            html += char;
+                        }
+                    }
+                    currentPos++;
+                }
+            }
+
+            // Rebuild with proper tags
+            let rebuiltHTML = '';
+            let pos = 0;
+            for (const part of textParts) {
+                let partContent = '';
+                for (let i = 0; i < part.text.length; i++) {
+                    if (pos < charIndex) {
+                        const char = part.text[i];
+                        partContent += char === '\n' ? '<br>' : char;
+                    }
+                    pos++;
+                }
+                if (partContent) {
+                    rebuiltHTML += part.italic ? '<em>' + partContent + '</em>' : partContent;
+                }
+            }
+
+            heroTitle.innerHTML = rebuiltHTML;
+            heroTitle.appendChild(cursor);
+
+            charIndex++;
+            if (charIndex <= totalChars) {
+                setTimeout(type, 60 + Math.random() * 40);
+            } else {
+                // Remove cursor after 2 seconds
+                setTimeout(() => cursor.remove(), 2000);
+            }
+        }
+        // Start after hero animation
+        setTimeout(type, 600);
+    }
+    typeWriter();
+
+    // ─── Scroll Progress Bar ───
+    const progressBar = document.getElementById('scrollProgress');
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (scrollTop / docHeight) * 100;
+        progressBar.style.width = progress + '%';
+
+        // Show/hide back to top
+        if (scrollTop > 600) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
     // ─── Scroll Reveal ───
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -1421,8 +1570,6 @@
             }
         });
     });
-
-    // ─── Nav always visible (no auto-hide) ───
 
     // ─── Hero parallax ───
     const heroGrid = document.querySelector('.hero-grid-bg');
