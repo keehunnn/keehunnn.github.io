@@ -191,7 +191,7 @@
             height: 100%;
             background-image: url('hero.jpg');
             background-size: cover;
-            background-position: left top;
+            background-position: 20% top;
             mask-image: linear-gradient(to left, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0.7) 100%);
             -webkit-mask-image: linear-gradient(to left, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0.7) 100%);
             opacity: 0;
@@ -624,7 +624,7 @@
         .photo-strip::-webkit-scrollbar { display: none; }
 
         .photo-strip img {
-            height: 200px;
+            height: 160px;
             width: auto;
             border-radius: 4px;
             object-fit: cover;
@@ -703,7 +703,7 @@
         /* ─── BEYOND FINANCE ─── */
         .beyond-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 1.25rem;
         }
 
@@ -737,7 +737,9 @@
         .contact-section {
             text-align: center;
             padding: 0;
-            max-width: 100%;
+            max-width: 100vw;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
             position: relative;
             overflow: hidden;
         }
